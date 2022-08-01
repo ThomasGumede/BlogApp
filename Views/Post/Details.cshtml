@@ -1,0 +1,303 @@
+@model Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
+    <div class="container">
+        <div class="space-y-9 w-full mx-11 flex flex-col items-center">
+            <div>
+                <p class="text-h-color font-bold text-xl">
+                    @TempData["Message"]
+                </p>
+            </div>
+            <div class="space-y-7 px-11">
+                <div class="space-y-5 w-full">
+                <h1 class="text-h-color font-bold text-6xl">
+                    @Model.Title
+                </h1>
+                <div class="flex items-center space-x-7">
+                    <div class="flex items-center space-x-4 text-p-color text-sm">
+                        <div class="overflow-hidden w-12 h-12 rounded-full">
+                            <img src="" alt="" class="w-full"/>
+                        </div>
+                        <p>
+                            @Model.Author
+                        </p>
+                        <p>
+                            @Model.Created
+                        </p>
+                        <p>
+                            @if (Model.Comments != null)
+                            {
+                               @Model.Comments.Count 
+                            }
+                            
+                        </p>
+                    </div>
+                </div>
+                </div>
+                <div class="overflow-hidden h-[400px] p-11">
+                    <img src="~/@Model.Photo" alt="" class="w-full h-full rounded-lg object-cover"/>
+                </div>
+                <div class="">
+                    
+                    @Html.Raw(Model.Content)
+                    
+                </div>
+                <div class="flex items-center justify-between w-full">
+                    <div class="flex items-center space-x-6">
+                        <div class="p-2 rounded bg-h-color">
+                            <a asp-controller="Post" asp-action="Index" asp-route-id="@Model.Category.Id" class="text-white text-base">
+                                @Model.Category.Title
+                            </a>
+                        </div>
+                        <div class="p-2 rounded bg-h-color">
+                            <a asp-controller="Post" asp-action="Update" asp-route-id="@Model.Id" class="text-white text-base">
+                                Update
+                            </a>
+                        </div>
+                        <div class="p-2 rounded bg-red-500">
+                            <a asp-controller="Post" asp-action="DeleteConfirm" asp-route-id="@Model.Id" class="text-white text-base">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-5">
+                        <p class="text-p-color text-base">
+                            Share Post
+                        </p>
+                        <a asp-controller="Post" asp-action="Index" asp-route-id="@Model.Category.Id" class="text-p-color text-base">
+                            Facebook
+                        </a>
+                        <a asp-controller="Post" asp-action="Index" asp-route-id="@Model.Category.Id" class="text-p-color text-base">
+                            Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-6 self-start px-11">
+                <div class="text-3xl text-h-color px-5 font-bold">
+                    @if (@Model.Comments != null)
+                    {
+                        <p>@Model.Comments!.Count Comments</p>
+                    }   else{
+                        <p>
+                            0 Comments
+                        </p>
+                    }
+                </div>
+                <div class="space-y-5" id="Comments">
+                    @if(Model.Comments != null)
+                    {
+                        foreach (var item in Model.Comments)
+                        {
+                           <div class="space-y-3">
+                                <div class="text-xl font-bold text-h-color">
+                                    <p>
+                                        @item.Author
+                                    </p>
+                                </div>
+                                <div class="text-sm text-p-color">
+                                    <p>
+                                        @item.Created
+                                    </p>
+                                </div>
+                                <div class="text-sm text-p-color">
+                                    @Html.Raw(item.Content)
+                                </div>
+                           </div> 
+                        }
+                    }else{
+                        <div id="NoComment" class="text-xl font-bold text-h-color">
+                            <p>No Comments</p>
+                        </div>
+                    }
+                </div>
+                <div class="space-y-5 self-start justify-self-start">
+                    <div class="text-3xl text-h-color font-bold">
+                        <p>
+                            Leave a Comment
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <div id="error_elert" class="bg-red-100 hidden w-full border border-red-400 mb-3 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                            </span>
+                        </div>
+                        <form method="post" asp-action="Create" asp-controller="Comment" id="comment_form" class="w-full space-y-5 comment-form">
+                            
+                            <div class="space-y-3">
+                                <label for="Author" class="">Your Name*</label>
+                                <input type="text" id="Author"
+                                    class="
+                                    block
+                                        w-[350px]
+                                        rounded-md
+                                        border
+                                        border-[#E9EDF4]
+                                        py-3
+                                        px-5
+                                        bg-[#FCFDFE]
+                                        text-base text-body-color
+                                        placeholder-[#ACB6BE]
+                                        outline-none
+                                        focus-visible:shadow-none
+                                        focus:border-primary
+                                " />
+                            </div>
+                            <select hidden id="PostId">
+                                <option value="@Model.Id">@Model.Title</option>
+                            </select>
+                            <div class="">
+                                <textarea
+                                    rows="6"
+                                    placeholder="Your Comment"
+                                    required
+                                    id="Content"
+                                    class="
+                                    w-full
+                                    rounded
+                                    py-3
+                                    px-[14px]
+                                    text-[#ACB6BE] text-base
+                                    border 
+                                    border-[#f0f0f0]
+                                    resize-none
+                                    outline-none
+                                    focus-visible:shadow-none
+                                    focus:border-primary
+                                    "
+                                    id="Content"
+                                    ></textarea>
+                            </div>
+                            <button type="submit" class="px-4 py-2 bg-transparent outline-none border-2 border-indigo-400 rounded text-indigo-500 font-medium active:scale-95 hover:bg-indigo-600 hover:text-white hover:border-transparent focus:bg-indigo-600 focus:text-white focus:border-transparent focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
+                                Submit
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/Trumbowyg/plugins/colors/ui/trumbowyg.colors.min.css" />
+}
+
+@section Scripts {
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/Trumbowyg/trumbowyg.min.js" asp-append-version="true" ></script>
+    <script src="~/lib/Trumbowyg/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+    <script src="~/lib/Trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.min.js"></script>
+    <script src="~/lib/Trumbowyg/plugins/colors/trumbowyg.colors.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/lineheight/trumbowyg.lineheight.min.js"
+        integrity="sha512-OFUipl73huXFm3oTQxm5vk+LM8aW10Ccm/O0usQh+0Xsi3f4cbJIcsuQiGrRKYYyuhM+yqcDTvTVgayg/Z4gQw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        
+
+        $('#Content').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['undo', 'redo'], // Only supported in Blink browsers
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['link'],
+                ['fontsize'],
+                ['fontfamily'],
+                ['color'],
+                ['lineheight'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+            tagClasses: {
+                h2: 'text-3xl text-h-color font-bold',
+                blockquote: 'bg-grey-100 rounded-xl',
+                p: 'text-p-color'
+            },
+            defaultLinkTarget: '_blank',
+            autogrow: true
+        });
+    </script>
+
+    <script>
+        $("#comment_form").on("submit", function(e){
+            e.preventDefault()
+            var $form = document.getElementById("comment_form");
+            var $Author = $("#Author").val();
+            var $Content = $("#Content").val();
+            var $PostId = $("#PostId").val();
+            console.log($PostId);
+            var $formData = new FormData();
+            $formData.append("Author", $Author);
+            $formData.append("Content", $Content);
+            $formData.append("PostId", $PostId);
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action(controller: "Comment", action: "Create")",
+                data: $formData,
+                processData: false,
+                contentType: false,
+
+                success: function(data){
+                    if(data.success){
+                        $form.reset()
+                        let $data = JSON.parse(data.model)
+                        $("#Comments").append(
+                           `<div class="space-y-3">
+                                <div class="text-xl font-bold text-h-color">
+                                    <p>
+                                       ${$data.Author}
+                                    </p>
+                                </div>
+                                <div class="text-sm text-p-color">
+                                    <p>
+                                        ${$data.Created}
+                                    </p>
+                                </div>
+                                <div class="text-sm text-p-color">
+                                    ${$data.Content}
+                                </div>
+                            </div>`
+                        )
+                      alert("sucess")
+                    }else{
+                        alert("Unsuccessful")
+                        console.log(data.model)
+                        let $alert_class = $("#error_elert")
+                        data.model.forEach(err => {
+                            $alert_class.append(
+                                `
+                                    <strong id="errorkey" class="font-bold ">${err.Key}</strong>
+                                    <span id="error_message" class="block sm:inline">${err.Value[0]}</span>
+                                `
+                            )
+                        })
+                        $alert_class.removeClass("hidden")
+                        $alert_class.addClass("inline-block")
+
+                    }
+                    
+                },
+
+                error: function(error)
+                {
+                    alert("Not Processed")
+                }
+            })
+            
+        })
+    </script>
+}

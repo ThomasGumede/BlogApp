@@ -1,0 +1,16 @@
+{
+  "name": "BlogApp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.6"
+  },
+  "scripts": {
+    "css:build": "npx tailwind build -i ./wwwroot/css/site.css -o ./wwwroot/css/output.css"
+  },
+  "author": "Thomas Gumede",
+  "keywords": []
+}

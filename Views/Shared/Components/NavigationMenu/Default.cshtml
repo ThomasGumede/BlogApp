@@ -1,0 +1,157 @@
+@model IEnumerable<Category>
+
+    <!-- ====== Navbar Section Start -->
+    <header
+      x-data="
+        {
+          navbarOpen: false
+        }
+      "
+      class="bg-white w-full flex items-center mx-auto"
+    >
+      <div class="container">
+        <div class="flex  items-center justify-between relative">
+          <div class="px-4 w-60 max-w-full">
+            <a asp-action="Index" asp-controller="Post" class="w-full block py-5">
+              <img
+                src="https://cdn.tailgrids.com/1.0/assets/images/logo/logo.svg"
+                alt="logo"
+                class="w-full"
+              />
+            </a>
+          </div>
+          <div class="flex px-4 justify-between items-center w-full">
+            <div>
+              <button
+                id="navbarToggler"
+                class="
+                  block
+                  absolute
+                  right-4
+                  top-1/2
+                  -translate-y-1/2
+                  lg:hidden
+                  focus:ring-2
+                  ring-primary
+                  px-3
+                  py-[6px]
+                  rounded-lg
+                "
+              >
+                <span
+                  class="relative w-[30px] h-[2px] my-[6px] block bg-body-color"
+                ></span>
+                <span
+                  class="relative w-[30px] h-[2px] my-[6px] block bg-body-color"
+                ></span>
+                <span
+                  class="relative w-[30px] h-[2px] my-[6px] block bg-body-color"
+                ></span>
+              </button>
+              <nav
+                id="navbarCollapse"
+                class="
+                  absolute
+                  py-5
+                  px-6
+                  bg-white
+                  shadow
+                  rounded-lg
+                  max-w-[250px]
+                  w-full
+                  md:max-w-full md:w-full
+                  right-4
+                  top-full
+                  md:block md:static md:shadow-none
+                "
+              >
+                <ul class="block md:flex">
+                    <li>
+                            <a
+                            asp-action="Index" asp-controller="Post" asp-route-id=""
+                            class="
+                                text-base
+                                font-medium
+                                text-p-color
+                                hover:text-btn-color
+                                py-2
+                                lg:inline-flex
+                                flex
+                                lg:ml-12
+                            "
+                            >
+                            All
+                            </a>
+                    </li>
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <a
+                            asp-action="Index" asp-route-Id="@item.Id" asp-controller="Post"
+                            class="
+                                text-base
+                                font-medium
+                                text-p-color
+                                hover:text-btn-color
+                                py-2
+                                lg:inline-flex
+                                flex
+                                lg:ml-12
+                            "
+                            >
+                            @item.Title
+                            </a>
+                        </li>  
+                    }
+                  
+                </ul>
+              </nav>
+            </div>
+            <div class="sm:flex justify-end hidden pr-16 md:pr-0">
+              <a
+                asp-action="Index" asp-controller="Category"
+                class="
+                  text-base
+                  font-medium
+                  text-dark
+                  hover:text-btn-color
+                  py-3
+                  px-7
+                "
+              >
+                All Categories
+              </a>
+              <a
+                asp-action="Create" asp-controller="Category"
+                class="
+                  text-base
+                  font-medium
+                  text-dark
+                  hover:text-btn-color
+                  py-3
+                  px-7
+                "
+              >
+                Create Category
+              </a>
+              <a
+                asp-action="Create" asp-controller="Post"
+                class="
+                  text-base
+                  font-medium
+                  text-white
+                  bg-btn-color
+                  rounded-lg
+                  py-3
+                  px-7
+                  hover:bg-opacity-90
+                "
+              >
+                Create Post
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- ====== Navbar Section End -->

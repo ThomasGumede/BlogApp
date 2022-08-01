@@ -1,0 +1,179 @@
+@model Post
+
+@{
+    ViewData["Title"] = "Create Post";
+}
+<section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
+    <div class="container">
+        
+        <div class="flex flex-wrap justify-center mx-auto">
+            <div class="w-full px-4">
+                <div class="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
+                    <span class="font-semibold text-lg text-h-color mb-2 block">
+                        Create Blog
+                    </span>
+                    <h2
+                        class="
+                            font-bold
+                            text-3xl
+                            sm:text-4xl
+                            md:text-[40px]
+                            text-p-color
+                            mb-4
+                            "
+                        >
+                        Be Nice & Creative
+                    </h2>
+                    <p class="text-base text-p-color">
+                        There are many variations of passages of Lorem Ipsum available
+                        but the majority have suffered alteration in some form.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap justify-center mx-4 px-4 flex-col space-y-3">
+            
+            <div asp-validation-summary="All" class="bg-red-100 w-full border border-red-400 mb-3 text-red-700 px-4 py-3 rounded relative" role="alert">
+            </div>
+            
+            <form method="post" asp-action="Create" class="space-y-7" enctype="multipart/form-data">
+                <div class="w-full flex items-center space-x-11">
+                    <div class="space-y-3 flex flex-col">
+                        <label asp-for="Author" class="text-black text-lg font-semibold"></label>
+                        <input asp-for="Author" required class="
+                            w-[400px]
+                            rounded-md
+                            border
+                            border-[#E9EDF4]
+                            py-3
+                            px-4
+                            bg-[#FCFDFE]
+                            text-base text-body-color
+                            placeholder-[#ACB6BE]
+                            outline-none
+                            focus-visible:shadow-none
+                            focus:border-btn-color
+                        "/>
+                    </div>
+                    <div class="space-y-3 flex flex-col">
+                        <label class="text-black text-lg font-semibold" asp-for="CategoryId">Category*</label>
+                        <select asp-for="CategoryId" asp-items="ViewBag.category" required 
+                        class="bg-btn-color text-white w-36 p-4 rounded-md">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="space-y-3 flex flex-col">
+                    <label asp-for="Title" class="text-black text-lg font-semibold">Blog Title*</label>
+                    <input asp-for="Title" required class="
+                        w-[400px]
+                        rounded-md
+                        border
+                        border-[#E9EDF4]
+                        py-3
+                        px-4
+                        bg-[#FCFDFE]
+                        text-base text-body-color
+                        placeholder-[#ACB6BE]
+                        outline-none
+                        focus-visible:shadow-none
+                        focus:border-btn-color
+                    "/>
+                </div>
+                <div class="space-y-3 flex flex-col">
+                    <label asp-for="Photo" class="text-black text-lg font-semibold">Blog Photo*</label>
+                    <input asp-for="Photo" type="file" required class="
+                        w-[400px]
+                        rounded-md
+                        border
+                        border-[#E9EDF4]
+                        py-3
+                        px-4
+                        bg-[#FCFDFE]
+                        text-base text-body-color
+                        placeholder-[#ACB6BE]
+                        outline-none
+                        focus-visible:shadow-none
+                        focus:border-btn-color
+                    "/>
+                </div>
+                <div class="space-y-3 flex flex-col">
+                    <label asp-for="Description" class="text-black text-lg font-semibold">Blog Description*</label>
+                    <input asp-for="Description" required class="
+                        w-[400px]
+                        rounded-md
+                        border
+                        border-[#E9EDF4]
+                        py-3
+                        px-4
+                        bg-[#FCFDFE]
+                        text-base text-body-color
+                        placeholder-[#ACB6BE]
+                        outline-none
+                        focus-visible:shadow-none
+                        focus:border-btn-color
+                    "/>
+                </div>
+                <div class="max-w-2xl">
+
+                    <label asp-for="Content" class="text-black text-lg font-semibold block">Your Content</label>
+                    <textarea asp-for="Content" rows="16" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your content..."></textarea>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-transparent outline-none border-2 border-indigo-400 rounded text-indigo-500 font-medium active:scale-95 hover:bg-indigo-600 hover:text-white hover:border-transparent focus:bg-indigo-600 focus:text-white focus:border-transparent focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
+                    Submit
+                </button>
+                
+            </form>
+        </div>
+        
+        
+    </div>
+</section>
+@section Styles {
+    <link rel="stylesheet" href="~/lib/Trumbowyg/plugins/colors/ui/trumbowyg.colors.min.css" />
+    <link rel="stylesheet" href="~/lib/Trumbowyg/plugins/highlight/ui/trumbowyg.highlight.min.css" />
+}
+
+@section Scripts {
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/Trumbowyg/trumbowyg.min.js" asp-append-version="true" ></script>
+    <script src="~/lib/Trumbowyg/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+    <script src="~/lib/Trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.min.js"></script>
+    <script src="~/lib/Trumbowyg/plugins/colors/trumbowyg.colors.min.js"></script>
+    <script src="~/lib/Trumbowyg/plugins/highlight/trumbowyg.highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/lineheight/trumbowyg.lineheight.min.js"
+        integrity="sha512-OFUipl73huXFm3oTQxm5vk+LM8aW10Ccm/O0usQh+0Xsi3f4cbJIcsuQiGrRKYYyuhM+yqcDTvTVgayg/Z4gQw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        
+
+        $('#Content').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['undo', 'redo'], // Only supported in Blink browsers
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['link'],
+                ['fontsize'],
+                ['fontfamily'],
+                ['color'],
+                ['lineheight'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+            tagClasses: {
+                h2: 'text-3xl text-h-color font-bold',
+                blockquote: 'bg-grey-100 rounded-xl',
+                p: 'text-p-color'
+            },
+            defaultLinkTarget: '_blank',
+            autogrow: true
+        });
+    </script>
+}
+

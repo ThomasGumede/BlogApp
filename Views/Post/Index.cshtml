@@ -1,0 +1,103 @@
+@model IEnumerable<Post>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+<!-- ====== Blog Section Start -->
+<section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
+   <div class="container">
+      <div class="flex flex-wrap justify-center mx-4">
+         <div class="w-full px-4">
+            <div class="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
+               <span class="font-semibold text-lg text-h-color mb-2 block">
+               Our Blogs
+               </span>
+               <h2
+                  class="
+                  font-bold
+                  text-3xl
+                  sm:text-4xl
+                  md:text-[40px]
+                  text-p-color
+                  mb-4
+                  "
+                  >
+                  @(ViewBag.Category != null ? ViewBag.Category.Title : "Our Recent News")
+               </h2>
+               <p class="text-base text-p-color">
+                  @(ViewBag.Category != null ? ViewBag.Category.Description : "There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form.")
+               </p>
+               <div>
+                  <p class="text-h-color font-bold text-xl">
+                        @TempData["Message"]
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="flex flex-wrap mx-4">
+         @if (Model != null)
+         {
+           @foreach (var item in Model ?? Enumerable.Empty<Post>())
+           {
+              <div class="w-full md:w-1/2 lg:w-1/3 px-4">
+                <div class="max-w-[370px] mx-auto mb-10">
+                  <div class="rounded overflow-hidden h-2/5 mb-8">
+                      <img
+                        src="~/@item.Photo"
+                        alt="image"
+                        class="w-full h-full object-cover"
+                        />
+                  </div>
+                  <div>
+                      <span
+                        class="
+                        bg-btn-color
+                        rounded
+                        inline-block
+                        text-center
+                        py-1
+                        px-4
+                        text-xs
+                        leading-loose
+                        font-semibold
+                        text-white
+                        mb-5
+                        "
+                        >
+                      @item.Created
+                      </span>
+                      <h3>
+                        <a
+                            asp-controller="Post" asp-action="Details" asp-route-Id="@item.Id"
+                            class="
+                            font-semibold
+                            text-xl
+                            sm:text-2xl
+                            lg:text-xl
+                            xl:text-2xl
+                            mb-4
+                            inline-block
+                            text-h-color
+                            hover:text-btn-color
+                            "
+                            >
+                        @item.Title
+                        </a>
+                      </h3>
+                      <p class="text-base text-p-color">
+                        @item.Description.Substring(0, 100)
+                      </p>
+                  </div>
+                </div>
+            </div>
+           }
+         }
+      </div>
+   </div>
+</section>
+<!-- ====== Blog Section End -->
+
+

@@ -1,0 +1,65 @@
+@model Post
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
+    <div class="container">
+        
+        <div class="flex flex-wrap justify-center space-y-7 mx-auto">
+            <div class="w-full px-4">
+                <div class="text-center mx-auto space-y-5 max-w-[510px]">
+                    <span class="font-semibold text-lg text-h-color mb-2 block">
+                        Delete Post
+                    </span>
+                    <h2
+                        class="
+                            font-bold
+                            text-3xl
+                            sm:text-4xl
+                            md:text-[40px]
+                            text-p-color
+                            mb-4
+                            "
+                        >
+                        Are You Sure You Want To Delete This Post? (@Model.Title)
+                    </h2>
+                    
+                    <p class="text-base text-p-color">
+                        @Model.Description
+                    </p>
+                </div>
+            </div>
+            <form method="post" asp-controller="Post" asp-action="Delete" >
+                
+                <div class="space-y-3 flex flex-col">
+                    
+                    <input asp-for="Id" hidden class="
+                        w-[400px]
+                        rounded-md
+                        border
+                        border-[#E9EDF4]
+                        py-3
+                        px-4
+                        bg-[#FCFDFE]
+                        text-base text-body-color
+                        placeholder-[#ACB6BE]
+                        outline-none
+                        focus-visible:shadow-none
+                        focus:border-btn-color
+                    "/>
+                </div>
+                <div class="space-x-5 flex items-center">
+                    <button type="submit" class="px-4 py-2 bg-transparent outline-none border-2 border-indigo-400 rounded text-indigo-500 font-medium active:scale-95 hover:bg-indigo-600 hover:text-white hover:border-transparent focus:bg-indigo-600 focus:text-white focus:border-transparent focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
+                        Delete
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-transparent outline-none border-2 border-indigo-400 rounded text-indigo-500 font-medium active:scale-95 hover:bg-indigo-600 hover:text-white hover:border-transparent focus:bg-indigo-600 focus:text-white focus:border-transparent focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 disabled:bg-gray-400/80 disabled:shadow-none disabled:cursor-not-allowed transition-colors duration-200">
+                        <a asp-action="Details" asp-route-id="@Model.Id" asp-controller="Post">Cancel</a>
+                    </button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</section>

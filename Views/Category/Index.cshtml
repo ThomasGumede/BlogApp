@@ -1,0 +1,101 @@
+@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<!-- component -->
+<div class="table w-full p-2 mt-5 space-y-6">
+    <div>
+        <a
+            asp-action="Create" asp-controller="Category"
+            class="
+                text-base
+                font-medium
+                text-white
+                bg-btn-color
+                rounded-lg
+                py-3
+                px-7
+                hover:bg-opacity-90
+            "
+        >
+                Create Category
+        </a>
+    </div>
+    <div>
+        <p class="text-h-color font-bold text-xl">
+            @TempData["Message"]
+        </p>
+    </div>
+        <table class="w-full border">
+            <thead>
+                <tr class="bg-gray-50 border-b">
+                    <th class="border-r p-2">
+                        <input type="checkbox">
+                    </th>
+                    <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                        <div class="flex items-center justify-center">
+                            Id
+                        </div>
+                    </th>
+                    <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                        <div class="flex items-center justify-center">
+                            Title
+                        </div>
+                    </th>
+                    <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                        <div class="flex items-center justify-center">
+                            Description
+                        </div>
+                    </th>
+                    <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                        <div class="flex items-center justify-center">
+                            Image
+                        </div>
+                    </th>
+                    <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                        <div class="flex items-center justify-center">
+                            Posts
+                        </div>
+                    </th>
+                    <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+                        <div class="flex items-center justify-center">
+                            Action
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model ?? Enumerable.Empty<Category>())
+                {
+                    
+                
+                <tr class="bg-gray-100 text-center border-b text-sm text-gray-600">
+                    <td class="p-2 border-r">
+                        <input type="checkbox" value="@item.Id">
+                    </td>
+                    <td class="p-2 border-r">@item.Id</td>
+                    <td class="p-2 border-r">@item.Title</td>
+                    <td class="p-2 border-r">@item.Description.Substring(0, 20)...</td>
+                    <td class="p-2 border-r">
+                        <Img src="~/@item.Thumbnail" class="w-[60px] h-[60px] rounded-full"/>
+                    </td>
+                    @if (item.Posts == null)
+                    {
+                        <td class="p-2 border-r">0 Posts</td>
+                    }else {
+                        <td class="p-2 border-r">@item.Posts.Count Posts</td>
+                    }
+                    <td>
+                        <a asp-controller="Post" asp-action="Index" asp-route-Id="@item.Id" class="bg-red-500 p-2 text-white hover:shadow-lg text-xs font-thin">View</a>
+                        <a asp-controller="Category" asp-action="Edit" asp-route-Id="@item.Id" class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin">Edit</a>
+
+                            <a asp-controller="Category" asp-action="DeleteConfirm" asp-route-Id="@item.Id" class="bg-red-500 p-2 text-white hover:shadow-lg text-xs font-thin">Remove</a>
+                    </td>
+                </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
